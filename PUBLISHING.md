@@ -24,9 +24,9 @@
 
 Do not upload the multi-version ZIP as an installable mod and do not mark one JAR compatible with all three versions. Source archives can be linked separately. Keep the exact corresponding source and included license notices available with every release.
 
-Use **Beta** until the runtime checklist below is completed. Build and unit-test success alone do not establish multiplayer compatibility.
+Use **Release** for 0.9.0. The maintainer has completed in-game testing and confirmed that the builds work.
 
-## Runtime checklist before promoting to Release
+## Runtime checklist for future releases
 
 For each target, launch a clean Fabric instance with the matching Fabric API and only the matching HIE JAR. Check:
 
