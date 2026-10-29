@@ -10,5 +10,5 @@
 - Preserve the shared editor tabs, live name/lore preview, library, enchantments,
   item model/type selection and Housing legacy filter.
 
-All three targets compile and pass 44 automated tests each. In-game verification
-is pending; treat these builds as beta.
+All three targets compile and pass 44 automated tests each. The maintainer has completed
+in-game testing; these builds are released.
