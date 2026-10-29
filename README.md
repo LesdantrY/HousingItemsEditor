@@ -22,7 +22,7 @@ Press **H** to edit the held item, or **N** to open your item library. Both keys
 
 ## Installation
 
-Download the JAR matching your **exact Minecraft version** from [Releases](https://github.com/LesdantrY/HousingItemsEditor/releases). Install only one Housing Items Editor JAR in your instance's `mods` folder, together with Fabric API for the same Minecraft version.
+Download the artifact matching your **exact Minecraft version** from a successful [GitHub Actions build](https://github.com/LesdantrY/HousingItemsEditor/actions/workflows/build.yml) and extract its JAR (GitHub sign-in is required to download Actions artifacts). Release builds will also be listed under [Releases](https://github.com/LesdantrY/HousingItemsEditor/releases) when published. Use the main JAR, not the `-sources.jar`. Install only one Housing Items Editor JAR in your instance's `mods` folder, together with Fabric API for the same Minecraft version.
 
 | Minecraft | Fabric Loader minimum | Fabric API used to build | Java minimum |
 | --- | --- | --- | --- |
