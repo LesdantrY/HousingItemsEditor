@@ -16,10 +16,8 @@ command options, enchantment descriptions, layout calculations and library persi
 Modern targets adapt rendering, screen management, key input, container access,
 and registry initialization while sharing the editor implementation.
 
-These are beta builds: automated tests do not verify rendered layouts, live mixin
-application, or Hypixel server acceptance. No in-game verification of the new
-26.2/26.3 builds has been completed. Follow the runtime checklist in PUBLISHING.md
-before marking uploads stable. Housing filtering does not guarantee server acceptance.
+These are release builds. The maintainer has completed in-game testing and confirmed that they work.
+Housing filtering does not guarantee server acceptance.
 
 Use the 0.9.0 JAR matching your exact Minecraft version. Older local artifacts
 are retained but are not part of this release.
