@@ -1,0 +1,24 @@
+{
+  "schemaVersion": 1,
+  "id": "housing_items_editor",
+  "version": "${version}",
+  "name": "Housing Items Editor",
+  "description": "Client-side item editing and a Housing item filter. Ported from AdvancedCreativeTab by ate47; inspired by HousingCreativeTab by BusterBrown1218.",
+  "authors": ["LesdantrY"],
+  "contributors": ["ate47 — AdvancedCreativeTab source", "BusterBrown1218 — HousingCreativeTab feature inspiration"],
+  "contact": {
+    "homepage": "https://github.com/LesdantrY/HousingItemsEditor",
+    "sources": "https://github.com/LesdantrY/HousingItemsEditor",
+    "issues": "https://github.com/LesdantrY/HousingItemsEditor/issues"
+  },
+  "environment": "client",
+  "mixins": ["housing_items_editor.mixins.json"],
+  "entrypoints": { "client": ["dev.housingitems.HousingItemsEditor"] },
+  "license": "LGPL-3.0-only",
+  "depends": {
+    "fabricloader": ">=${loader}",
+    "minecraft": "${minecraft}",
+    "java": ">=${java}",
+    "fabric-api": "*"
+  }
+}

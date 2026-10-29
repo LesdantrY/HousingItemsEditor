@@ -1,0 +1,95 @@
+plugins {
+    id 'net.fabricmc.fabric-loom-remap' version '1.17.21' apply false
+    id 'net.fabricmc.fabric-loom' version '1.17.21' apply false
+}
+
+tasks.register('collectJars', Copy) {
+    dependsOn subprojects.collect { it.tasks.named('build') }
+    into layout.projectDirectory.dir('dist/jars')
+    subprojects.each { p ->
+        from(p.layout.buildDirectory.dir('libs')) {
+            include "housing-items-editor-${p.version}.jar"
+        }
+    }
+}
+
+tasks.register('releaseBundle', Zip) {
+    dependsOn tasks.named('collectJars')
+    archiveFileName = "housing-items-editor-${mod_version}-fabric.zip"
+    destinationDirectory = layout.projectDirectory.dir('dist')
+    from(layout.projectDirectory.dir('dist/jars')) {
+        include "housing-items-editor-${mod_version}+*.jar"
+        into 'mods'
+    }
+    from('README.md', 'LICENSE', 'COPYING-GPL-3.0', 'THIRD-PARTY-NOTICES.md', 'BUILD-STATUS.md')
+}
+
+tasks.register('sourceBundle', Zip) {
+    archiveFileName = "housing-items-editor-${mod_version}-source.zip"
+    destinationDirectory = layout.projectDirectory.dir('dist')
+    from('.') {
+        include 'src/**', 'upstream/**', 'gradle/**', '.github/**', '.gitignore', 'gradlew', 'gradlew.bat', '*.gradle', 'gradle.properties', '*.md', 'LICENSE', 'COPYING-GPL-3.0', '*.ps1', 'versions/*/.gitkeep', 'docs/**'
+    }
+}
+
+def apiVersions = [
+    '1.21.11': '0.141.6+1.21.11',
+    '26.1': '0.145.1+26.1',
+    '26.1.1': '0.145.4+26.1.1',
+    '26.1.2': '0.155.3+26.1.2',
+    '26.2': '0.161.0+26.2',
+    '26.3': '0.165.0+26.3'
+]
+
+subprojects {
+    def mc = name.substring(3)
+    def legacy = mc == '1.21.11'
+    def loaderVersion = legacy ? '0.19.3' : '0.20.1'
+    apply plugin: legacy ? 'net.fabricmc.fabric-loom-remap' : 'net.fabricmc.fabric-loom'
+    group = rootProject.maven_group
+    version = "${rootProject.mod_version}+${mc}"
+    base { archivesName = 'housing-items-editor' }
+    repositories { mavenCentral() }
+    dependencies {
+        testImplementation 'org.junit.jupiter:junit-jupiter:5.11.4'
+        testRuntimeOnly 'org.junit.platform:junit-platform-launcher:1.11.4'
+        minecraft "com.mojang:minecraft:${mc}"
+        if (legacy) {
+            mappings loom.officialMojangMappings()
+            modImplementation "net.fabricmc:fabric-loader:${loaderVersion}"
+            modImplementation "net.fabricmc.fabric-api:fabric-api:${apiVersions[mc]}"
+        } else {
+            implementation "net.fabricmc:fabric-loader:${loaderVersion}"
+            implementation "net.fabricmc.fabric-api:fabric-api:${apiVersions[mc]}"
+        }
+    }
+    def uiGeneration = ['26.2', '26.3'].contains(mc) ? 'modern' : 'legacy'
+    sourceSets.main.java.srcDirs = [rootProject.file('src/main/java'),
+        rootProject.file("src/${legacy ? 'legacy' : 'modern'}/java"),
+        rootProject.file("src/render-${legacy ? 'legacy' : 'modern'}/java"),
+        rootProject.file("src/ui-${uiGeneration}/java")]
+    sourceSets.main.resources.srcDirs = [rootProject.file('src/main/resources')]
+    if (!legacy) apply from: rootProject.file('gradle/modern-sources.gradle')
+    sourceSets.test.java.srcDirs = [rootProject.file('src/test/java'), rootProject.file("src/test-${legacy ? 'legacy' : mc == '26.3' ? '26.3' : 'modern'}/java")]
+    test { useJUnitPlatform() }
+    java { withSourcesJar() }
+    jar {
+        from(rootProject.file('LICENSE'))
+        from(rootProject.file('COPYING-GPL-3.0'))
+        from(rootProject.file('THIRD-PARTY-NOTICES.md'))
+        from(rootProject.file('upstream/PRISMARINE-DATA-NOTICE.md')) { into 'licenses' }
+        from(rootProject.file('upstream/AdvancedCreativeTab/LICENSE.txt')) { into 'licenses/AdvancedCreativeTab' }
+    }
+    tasks.withType(JavaCompile).configureEach {
+        options.release = legacy ? 21 : 25
+        options.encoding = 'UTF-8'
+    }
+    processResources {
+        inputs.property 'version', project.version
+        inputs.property 'minecraft', mc
+        inputs.property 'loader', loaderVersion
+        filesMatching('fabric.mod.json') {
+            expand(version: project.version, minecraft: mc, java: legacy ? 21 : 25, loader: loaderVersion)
+        }
+    }
+}

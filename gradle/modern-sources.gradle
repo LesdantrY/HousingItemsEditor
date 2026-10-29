@@ -1,0 +1,33 @@
+// Minecraft 26.2+ renamed the GUI rendering and screen-management APIs.
+// Generate mechanically adapted sources, leaving one editable implementation in src/main/java.
+def modernSources = layout.buildDirectory.dir('generated/sources/modern')
+tasks.register('generateModernSources', Sync) {
+    inputs.file(rootProject.file('gradle/modern-sources.gradle'))
+    inputs.property('minecraftTarget', project.name)
+    from(rootProject.file('src/main/java'))
+    into(modernSources)
+    filteringCharset = 'UTF-8'
+    filter { String line ->
+        if (project.name == 'mc-26.3') {
+            line = line.replace('org.lwjgl.glfw.GLFW.GLFW_KEY_', 'com.mojang.blaze3d.platform.InputConstants.KEYCODE_')
+                       .replace('org.lwjgl.glfw.GLFW.GLFW_MOD_', 'com.mojang.blaze3d.platform.InputConstants.MOD_')
+                       .replace('event.key()', 'event.shortcutKey()')
+                       .replace('ItemContainerContents.EMPTY).stream()', 'ItemContainerContents.EMPTY).itemCopies()')
+        }
+        line.replace('GuiGraphics', 'GuiGraphicsExtractor')
+            .replace('void render(', 'void extractRenderState(')
+            .replace('super.render(', 'super.extractRenderState(')
+            .replace('void renderWidget(', 'void extractWidgetRenderState(')
+            .replace('.drawString(', '.text(')
+            .replace('.drawCenteredString(', '.centeredText(')
+            .replace('.renderItemDecorations(', '.itemDecorations(')
+            .replace('.renderItem(', '.item(')
+            .replace('mc.setScreen(', 'mc.gui.setScreen(')
+            .replace('mc.screen', 'mc.gui.screen()')
+            .replace('ItemContainerContents.EMPTY).stream()', 'ItemContainerContents.EMPTY).allItemsCopyStream()')
+            .replace('original.getItem().getName()', 'original.getItem().getName(original)')
+    }
+}
+sourceSets.main.java.setSrcDirs([modernSources, rootProject.file('src/modern/java'), rootProject.file('src/render-modern/java'), rootProject.file('src/ui-modern/java')])
+tasks.named('compileJava') { dependsOn 'generateModernSources' }
+tasks.matching { it.name == 'sourcesJar' }.configureEach { dependsOn 'generateModernSources' }

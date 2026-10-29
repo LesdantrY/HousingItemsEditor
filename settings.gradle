@@ -1,0 +1,16 @@
+pluginManagement {
+    repositories {
+        maven { url = 'https://maven.fabricmc.net/' }
+        gradlePluginPortal()
+        mavenCentral()
+    }
+}
+rootProject.name = 'HousingItemsEditor'
+def versions = ['1.21.11', '26.2', '26.3']
+def target = providers.gradleProperty('minecraftTarget').orNull
+if (target != null && !versions.contains(target)) throw new GradleException("Unsupported minecraftTarget: ${target}")
+(target == null ? versions : [target]).each { version ->
+    include "mc-${version}"
+    project(":mc-${version}").projectDir = file("versions/${version}")
+}
+

@@ -1,0 +1,7 @@
+{
+  "required": true,
+  "package": "dev.housingitems.mixin",
+  "compatibilityLevel": "JAVA_21",
+  "client": ["CreativeInventoryMixin"],
+  "injectors": { "defaultRequire": 1 }
+}
