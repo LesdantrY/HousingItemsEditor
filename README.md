@@ -27,8 +27,8 @@ Download the artifact matching your **exact Minecraft version** from a successfu
 | Minecraft | Fabric Loader minimum | Fabric API used to build | Java minimum |
 | --- | --- | --- | --- |
 | 1.21.11 | 0.19.3 | 0.141.6+1.21.11 | 21 |
-| 26.2 | 0.20.1 | 0.161.0+26.2 | 25 |
-| 26.3 | 0.20.1 | 0.165.0+26.3 | 25 |
+| 26.2 | 0.19.5 | 0.161.0+26.2 | 25 |
+| 26.3 | 0.19.5 | 0.165.0+26.3 | 25 |
 
 This is a **client-only** mod. YACL is not required. Fabric API is required. The three JARs are separate builds, not interchangeable files.
 
