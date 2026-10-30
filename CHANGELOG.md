@@ -1,5 +1,10 @@
 # Changelog
 
+## 0.9.1
+
+- Support Fabric Loader 0.19.5+ for Minecraft 26.2 and 26.3.
+- Release update following maintainer in-game testing.
+
 ## 0.9.0
 
 - Add Fabric builds for Minecraft 26.2 and 26.3 alongside 1.21.11.
