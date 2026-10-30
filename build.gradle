@@ -44,7 +44,7 @@ def apiVersions = [
 subprojects {
     def mc = name.substring(3)
     def legacy = mc == '1.21.11'
-    def loaderVersion = legacy ? '0.19.3' : '0.20.1'
+    def loaderVersion = legacy ? '0.19.3' : '0.19.5'
     apply plugin: legacy ? 'net.fabricmc.fabric-loom-remap' : 'net.fabricmc.fabric-loom'
     group = rootProject.maven_group
     version = "${rootProject.mod_version}+${mc}"
