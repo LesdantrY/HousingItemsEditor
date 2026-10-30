@@ -5,8 +5,8 @@
 | Minecraft | Fabric Loader minimum | Fabric API | Java output | Automated tests |
 | --- | --- | --- | --- | --- |
 | 1.21.11 | 0.19.3 | 0.141.6+1.21.11 | 21 | 44 passed |
-| 26.2 | 0.20.1 | 0.161.0+26.2 | 25 | 44 passed |
-| 26.3 | 0.20.1 | 0.165.0+26.3 | 25 | 44 passed |
+| 26.2 | 0.19.5 | 0.161.0+26.2 | 25 | 44 passed |
+| 26.3 | 0.19.5 | 0.165.0+26.3 | 25 | 44 passed |
 
 Built with JDK 25 and Gradle 9.5. The complete build, releaseBundle and
 sourceBundle tasks succeeded for all three targets. No test failures or errors.
