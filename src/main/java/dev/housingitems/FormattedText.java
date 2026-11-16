@@ -31,7 +31,7 @@ public final class FormattedText {
             } else segment.append(c);
         }
         result.append(Component.literal(segment.toString()).setStyle(style));
-        ORIGINAL_TEXT.put(canonical(result), value);
+        ORIGINAL_TEXT.computeIfAbsent(canonical(result), key -> value);
         return result;
     }
     public static String editable(Component component) {
