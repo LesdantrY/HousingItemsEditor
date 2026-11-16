@@ -11,6 +11,13 @@ class FormattedTextTest {
             assertEquals(raw, FormattedText.editable(FormattedText.parse(raw).copy()));
         }
     }
+    @Test void equivalentColorEncodingsDoNotOverwriteEachOther() {
+        var legacy = FormattedText.parse("&aGreen");
+        var hex = FormattedText.parse("&#55FF55Green");
+        assertEquals("&aGreen", FormattedText.editable(legacy));
+        assertEquals("&aGreen", FormattedText.editable(hex));
+        assertEquals("&aGreen", FormattedText.editable(legacy.copy()));
+    }
     @Test void existingVanillaColorsUseAmpersandInsteadOfHex() {
         assertEquals("&6Existing gold item", FormattedText.editable(Component.literal("Existing gold item").withStyle(ChatFormatting.GOLD)));
     }
