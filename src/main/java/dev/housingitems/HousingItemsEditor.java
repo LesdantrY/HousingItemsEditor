@@ -52,7 +52,6 @@ public final class HousingItemsEditor implements ClientModInitializer {
         ItemTooltipCallback.EVENT.register((stack, context, type, lines) -> {
             HousingData.tooltip(stack, lines);
             if (!type.isAdvanced()) return;
-            if (stack.isDamageableItem()) lines.add(Component.literal("Durability: " + (stack.getMaxDamage() - stack.getDamageValue()) + "/" + stack.getMaxDamage()));
             Integer repairCost = stack.get(DataComponents.REPAIR_COST);
             if (repairCost != null && repairCost > 0 && stack.getMaxDamage() > 0) lines.add(Component.literal("Repair cost: " + repairCost));
         });
