@@ -1,5 +1,9 @@
 # Changelog
 
+## 0.9.2
+
+- Remove Housing Items Editor's duplicate advanced-tooltip durability line.
+
 ## 0.9.1
 
 - Support Fabric Loader 0.19.5+ for Minecraft 26.2 and 26.3.
