@@ -73,13 +73,12 @@ public final class LibraryScreen extends GuiACT {
         button(left + w - 64, height - 64, 64, returnScreen == null ? "Close" : "Back", this::onClose);
     }
     @Override public void complete() throws Exception {
-        CreativeAccess.cancel(); mc.setScreen(null);
+        if (!(returnScreen instanceof fr.atesab.act.gui.GuiGiver)) CreativeAccess.cancel();
+        mc.setScreen(null);
     }
     @Override public void onClose() {
-        CreativeAccess.cancel();
         if (returnScreen instanceof fr.atesab.act.gui.GuiGiver root) root.reopenLastMenu();
-        else if (returnScreen != null) mc.setScreen(returnScreen);
-        else mc.setScreen(null);
+        else { CreativeAccess.cancel(); if (returnScreen != null) mc.setScreen(returnScreen); else mc.setScreen(null); }
     }
     @Override public void render(GuiGraphics g, int mouseX, int mouseY, float delta) {
         super.render(g, mouseX, mouseY, delta);

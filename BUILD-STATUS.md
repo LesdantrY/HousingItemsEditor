@@ -1,5 +1,14 @@
 # Verification — 29 October 2026
 
+## Housing Items Editor 0.9.3
+
+The 0.9.3 release build includes the "Save to Library" label, a configurable
+creative-inventory Housing button, and temporary Creative mode with restoration
+of the previous mode after item editing.
+
+All three Minecraft targets build and pass their automated test suites. The
+runtime checklist below has not yet been completed for this release.
+
 ## Housing Items Editor 0.9.0
 
 | Minecraft | Fabric Loader minimum | Fabric API | Java output | Automated tests |

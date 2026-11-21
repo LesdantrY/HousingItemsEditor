@@ -21,8 +21,8 @@ public final class DataScreen extends GuiACT {
     @Override public void complete() throws Exception { applyDraft(); mc.setScreen(parent); }
     @Override protected String backLabel() { return "Back"; }
     @Override public void back() throws Exception {
-        if (importing) { CreativeAccess.cancel(); mc.setScreen(parent); }
-        else { CreativeAccess.cancel(); applyDraft(); mc.setScreen(parent); }
+        if (importing) mc.setScreen(parent);
+        else { applyDraft(); mc.setScreen(parent); }
     }
 }
 

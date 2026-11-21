@@ -18,13 +18,13 @@
 
 | Version number | Primary mod JAR | Minecraft tag |
 | --- | --- | --- |
-| 0.9.0+1.21.11 | housing-items-editor-0.9.0+1.21.11.jar | 1.21.11 only |
-| 0.9.0+26.2 | housing-items-editor-0.9.0+26.2.jar | 26.2 only |
-| 0.9.0+26.3 | housing-items-editor-0.9.0+26.3.jar | 26.3 only |
+| 0.9.3+1.21.11 | housing-items-editor-0.9.3+1.21.11.jar | 1.21.11 only |
+| 0.9.3+26.2 | housing-items-editor-0.9.3+26.2.jar | 26.2 only |
+| 0.9.3+26.3 | housing-items-editor-0.9.3+26.3.jar | 26.3 only |
 
 Do not upload the multi-version ZIP as an installable mod and do not mark one JAR compatible with all three versions. Source archives can be linked separately. Keep the exact corresponding source and included license notices available with every release.
 
-Use **Release** for 0.9.0. The maintainer has completed in-game testing and confirmed that the builds work.
+Use **Release** for 0.9.3 after completing the runtime checklist below.
 
 ## Runtime checklist for future releases
 

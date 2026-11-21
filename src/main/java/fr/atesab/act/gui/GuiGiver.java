@@ -20,6 +20,7 @@ public class GuiGiver extends GuiACT {
         currentItemStack = itemStack.isEmpty() ? new ItemStack(Items.STONE) : itemStack.copy();
         original = mc.player.getMainHandItem().copy();
         originalSlot = mc.player.getInventory().getSelectedSlot();
+        CreativeAccess.prepare();
     }
     public void setCurrent(ItemStack stack) { currentItemStack = stack.copy(); }
     public ItemStack currentItem() { return currentItemStack.copy(); }
@@ -46,7 +47,7 @@ public class GuiGiver extends GuiACT {
     public void reopenLastMenu() { openTab(lastTab); }
     public static void rememberMainMenu() {}
     @Override public void complete() throws Exception {
-        if (ItemStack.matches(currentItemStack,original)) { mc.setScreen(null); return; }
+        if (ItemStack.matches(currentItemStack,original)) { CreativeAccess.cancel(); mc.setScreen(null); return; }
         ItemStack draft=ItemData.decode(ItemData.encode(currentItemStack));
         CreativeAccess.run(() -> { ItemData.replaceHeld(draft,originalSlot,original); mc.setScreen(null); });
     }

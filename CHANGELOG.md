@@ -1,5 +1,12 @@
 # Changelog
 
+## 0.9.3
+
+- Rename "Save Item" to "Save to Library".
+- Add a setting to show or hide the creative-inventory Housing button, with a tooltip explaining the 1.8.9 filter.
+- Restore the player's previous game mode after applying or cancelling item edits from a non-Creative mode.
+- Request temporary Creative mode when the editor opens to reduce the wait when applying edits.
+
 ## 0.9.2
 
 - Remove Housing Items Editor's duplicate advanced-tooltip durability line.
