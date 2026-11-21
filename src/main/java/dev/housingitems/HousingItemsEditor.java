@@ -23,6 +23,7 @@ public final class HousingItemsEditor implements ClientModInitializer {
     private static boolean pendingEditor, pendingLibrary;
 
     @Override public void onInitializeClient() {
+        HousingFilter.loadSettings();
         var category = KeyMapping.Category.register(Identifier.fromNamespaceAndPath("housing_items_editor", "editor"));
         KeyMapping edit = FabricCompat.key(new KeyMapping("key.housing_items_editor.edit",
                 InputConstants.KEY_H, category));

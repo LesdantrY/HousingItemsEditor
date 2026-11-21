@@ -24,6 +24,7 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
     private void hie$initialize(CallbackInfo ci) { HousingFilter.initialize(); CreativeCatalog.rebuild(); }
     @Inject(method = "init", at = @At("TAIL"))
     private void hie$buttons(CallbackInfo ci) {
+        if (!HousingFilter.showButton()) return;
         int x = Math.max(4, leftPos), y = Math.min(height - 21, topPos + imageHeight + 32);
         var housingButton = addRenderableWidget(Button.builder(Component.literal("Housing: " + (HousingFilter.enabled ? "ON" : "OFF")), b -> {
             HousingFilter.enabled = !HousingFilter.enabled;
@@ -32,6 +33,9 @@ public abstract class CreativeInventoryMixin extends AbstractContainerScreen<Cre
             if (selectedTab.getType() == CreativeModeTab.Type.SEARCH) { searchBox.setValue(query); refreshSearchResults(); }
         }).bounds(x, y, 98, 20).build());
         housingButton.setOverrideRenderHighlightedSprite(housingButton::isHovered);
+        housingButton.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal(
+                "When Housing is on, only items from Minecraft 1.8.9 are shown. Hypixel Housing uses this version.\n" +
+                        "Hide or show this button with the Housing Button control in the editor footer.")));
     }
     @Inject(method = {"selectTab", "refreshSearchResults", "refreshCurrentTabContents"}, at = @At("RETURN"))
     private void hie$filter(CallbackInfo ci) {

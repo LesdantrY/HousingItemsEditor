@@ -27,7 +27,12 @@ public class GuiACT extends Screen {
     protected void initEditorTabs(String selected) {
         if (!(parent instanceof GuiGiver root)) return;
         activeTab = selected;
-        button(width - 174, height - 36, 80, "Save Item", () -> { applyDraft(); root.saveToLibrary(); status = "Saved to library."; })
+        var showHousing = button(width - 314, height - 36, 126, "Housing Button: " + (dev.housingitems.HousingFilter.showButton() ? "ON" : "OFF"), () -> {
+            dev.housingitems.HousingFilter.setShowButton(!dev.housingitems.HousingFilter.showButton());
+            rebuildWidgets();
+        });
+        showHousing.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal("Show or hide the Housing filter button in the creative inventory.")));
+        button(width - 184, height - 36, 90, "Save to Library", () -> { applyDraft(); root.saveToLibrary(); status = "Saved to library."; })
                 .setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal("Saved items go in Library. You can also use /hie saveItem.")));
         button(width - 90, height - 36, 80, "Library", () -> { applyDraft(); root.openTab("Library"); })
                 .setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal("View all saved items")));
@@ -43,7 +48,7 @@ public class GuiACT extends Screen {
         for (int i = 0; i < tabs.length; i++) {
             String tab = tabs[i];
             String label = font.plainSubstrByWidth(tab, w - 8);
-            var b = button(x, y + i * 25, w, label, () -> { dev.housingitems.CreativeAccess.cancel(); applyDraft(); root.openTab(tab); });
+            var b = button(x, y + i * 25, w, label, () -> { applyDraft(); root.openTab(tab); });
             b.setTooltip(net.minecraft.client.gui.components.Tooltip.create(Component.literal(tips[i])));
             b.setOverrideRenderHighlightedSprite(() -> tab.equals(activeTab) || b.isHovered());
         }
@@ -129,7 +134,7 @@ public class GuiACT extends Screen {
         else if (mc.player != null) mc.setScreen(new dev.housingitems.EditorScreen(null, mc.player.getMainHandItem()));
         else mc.setScreen(null);
     }
-    @Override public void onClose() { if (!suppressClose) { dev.housingitems.CreativeAccess.cancel(); mc.setScreen(parent instanceof GuiGiver ? null : parent); } }
+    @Override public void onClose() { if (!suppressClose) { if (parent instanceof GuiGiver) dev.housingitems.CreativeAccess.cancel(); mc.setScreen(parent instanceof GuiGiver ? null : parent); } }
     @Override public boolean isPauseScreen() { return true; }
     @FunctionalInterface public interface Action { void run() throws Exception; }
 }
